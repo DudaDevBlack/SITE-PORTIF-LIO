@@ -1,66 +1,23 @@
-const ESP32 = "http://192.168.0.100"; // MUDE
-
-let grafico;
+const ESP32 = "http://SEU_IP_AQUI";
 
 async function atualizar(){
-
   const r = await fetch(`${ESP32}/status`);
   const d = await r.json();
 
-  document.getElementById("temp").innerText = d.temp + "°C";
-  document.getElementById("umid").innerText = d.umid + "%";
-  document.getElementById("tempoOnline").innerText = d.tempo;
+  document.getElementById("temp").innerText = "Temp: " + d.temp;
+  document.getElementById("umid").innerText = "Umid: " + d.umid;
 
-  let perc = Math.min((d.nivel / 200) * 100, 100);
-
-  document.getElementById("nivelBar").style.width = perc + "%";
-  document.getElementById("nivelTxt").innerText = d.nivel + " cm";
-
-  luzInt.checked = d.luzInt;
-  luzExt.checked = d.luzExt;
-  refletor.checked = d.refletor;
-  piscina.checked = d.piscina;
-
-  atualizarGrafico(d.temp);
+  document.getElementById("int").checked = d.luzInt;
+  document.getElementById("ext").checked = d.luzExt;
 }
 
-function enviar(cmd){
-  fetch(`${ESP32}/${cmd}`);
-}
+document.getElementById("int").onchange = ()=>{
+  fetch(`${ESP32}/int`);
+};
 
-luzInt.onchange = ()=>enviar("int");
-luzExt.onchange = ()=>enviar("ext");
-refletor.onchange = ()=>enviar("ref");
-piscina.onchange = ()=>enviar("pis");
-
-function iniciarGrafico(){
-  const ctx = document.getElementById("grafico");
-
-  grafico = new Chart(ctx,{
-    type:"line",
-    data:{
-      labels:[],
-      datasets:[{
-        label:"Temperatura",
-        data:[]
-      }]
-    }
-  });
-}
-
-function atualizarGrafico(temp){
-  let t = new Date().toLocaleTimeString();
-
-  grafico.data.labels.push(t);
-  grafico.data.datasets[0].data.push(temp);
-
-  if(grafico.data.labels.length > 10){
-    grafico.data.labels.shift();
-    grafico.data.datasets[0].data.shift();
-  }
-
-  grafico.update();
-}
+document.getElementById("ext").onchange = ()=>{
+  fetch(`${ESP32}/ext`);
+};
 
 setInterval(atualizar,2000);
-iniciarGrafico();
+atualizar();
