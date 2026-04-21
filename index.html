@@ -1,62 +1,28 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html>
 <head>
-<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
-<title>BLACKIA OFFGRID</title>
-
-<link rel="stylesheet" href="css/style.css">
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<title>BLACKIA</title>
 </head>
 
 <body>
 
-<header>
-  <img src="assets/logo.png">
-  <h2>BLACK.IA Dashboard</h2>
-  <span id="tempoOnline"></span>
-</header>
+<h2>BLACKIA Dashboard</h2>
 
-<section class="cards">
+<p id="temp">Temp: --</p>
+<p id="umid">Umid: --</p>
 
-  <div class="card">
-    <h3>🌡 Temperatura</h3>
-    <p id="temp">--</p>
-  </div>
+<label>
+  Luz Interna
+  <input type="checkbox" id="int">
+</label>
 
-  <div class="card">
-    <h3>💧 Umidade</h3>
-    <p id="umid">--</p>
-  </div>
+<label>
+  Luz Externa
+  <input type="checkbox" id="ext">
+</label>
 
-</section>
-
-<section class="card">
-  <h3>Reservatório</h3>
-  <div class="barra">
-    <div id="nivelBar"></div>
-  </div>
-  <p id="nivelTxt"></p>
-</section>
-
-<section class="card">
-  <h3>Controle</h3>
-
-  <div class="switchBox">
-    <label>Interna <input type="checkbox" id="luzInt"></label>
-    <label>Externa <input type="checkbox" id="luzExt"></label>
-    <label>Refletor <input type="checkbox" id="refletor"></label>
-    <label>Piscina <input type="checkbox" id="piscina"></label>
-  </div>
-
-</section>
-
-<section class="card">
-  <canvas id="grafico"></canvas>
-</section>
-
-<script src="js/app.js"></script>
+<script src="app.js"></script>
 
 </body>
 </html>
